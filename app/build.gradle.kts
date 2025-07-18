@@ -46,14 +46,24 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-            excludes += "META-INF/DEPENDENCIES"
-            excludes += "META-INF/LICENSE"
-            excludes += "META-INF/LICENSE.txt"
-            excludes += "META-INF/NOTICE"
-            excludes += "META-INF/NOTICE.txt"
-            excludes += "META-INF/*.kotlin_module"
-            pickFirsts += "META-INF/services/com.google.zxing.client.android.encode.EncodeWorker"
+            excludes.add("META-INF/rxjava.properties")
+            excludes.add("META-INF/INDEX.LIST")
+            excludes.add("META-INF/LGPL2.1")
+            excludes.add("META-INF/LICENSE.txt")
+            excludes.add("META-INF/NOTICE.txt")
+            excludes.add("META-INF/LICENSE")
+            excludes.add("META-INF/NOTICE")
+            excludes.add("META-INF/ASL2.0")
+            excludes.add("META-INF/DEPENDENCIES")
+            // No uses pickFirsts para libc++_shared.so a menos que sea estrictamente necesario,
+            // ya que puede causar problemas si múltiples librerías lo incluyen.
+            // Si el error de libc++_shared.so vuelve, podemos añadir pickFirsts específicos.
+        }
+        // Eliminamos useLegacyPackaging = true
+        // jniLibs {
+        //     useLegacyPackaging = true
+        // }
+    }
         }
         jniLibs {
             useLegacyPackaging = true
